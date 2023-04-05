@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-deployment
-  namespace: dev
+ # namespace: dev
   labels:
     app: nodejsapp
 spec:
@@ -34,7 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nodejs-service
-  namespace: dev
+  #namespace: dev
   labels:
     app: nodejsapp
 spec:
@@ -45,7 +45,7 @@ spec:
   selector:
     app: nodejsapp
     tier: frontend
-  type: NodePort
+  type: LoadBalancer
 
 
 
