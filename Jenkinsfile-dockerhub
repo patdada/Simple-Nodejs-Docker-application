@@ -1,0 +1,51 @@
+pipeline {
+    agent any 
+
+     options {
+        timeout(time: 10, unit: 'MINUTES')
+     }
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('karo-dockerhub')
+    }
+    stages { 
+        stage('SCM Checkout') {
+            steps{
+           git branch: 'main', url: 'https://github.com/ooghenekaro/Simple-Nodejs-Docker-application.git'
+            }
+        }
+
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t ooghenekaro/node-app:$BUILD_NUMBER .'
+            }
+        }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push ooghenekaro/node-app:$BUILD_NUMBER'
+            }
+        }
+        stage('Update Deployment manifest') {
+               environment {
+                         GIT_REPO_NAME="Grand CI and Argocd deployment to AWS EKS"
+             }
+            steps {
+                    withCredentials([usernamePassword(credentialsId: 'karo-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {   
+                        sh "git config user.email ooghenekaro@yahoo.com"
+                        sh "git config user.name ooghenekaro"
+                        sh "cat ${GIT_REPO_NAME}/deployment.yaml"
+                        sh "sed -i 's+ooghenekaro/nodejs-app.*+ooghenekaro/nodejs-app:${BUILD_NUMBER}+g' argo-cd-manifest/deployment.yaml"
+                        sh "cat argo-cd-manifest/deployment.yaml"
+                        sh "git add ."
+                        sh "git commit -m 'Update the Deployment image to this version: ${BUILD_NUMBER}'"
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} HEAD:main"
+               }
+           }
+       }
+    }
+}
+
