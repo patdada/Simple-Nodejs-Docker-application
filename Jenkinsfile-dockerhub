@@ -29,6 +29,10 @@ pipeline {
                 sh 'docker push ooghenekaro/nodejs-app:$BUILD_NUMBER'
             }
         }
+        stage('Trigger ManifestUpdate') {
+                build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+            }
+        }
         stage('Update Deployment manifest') {
                environment {
                          GIT_REPO_NAME="Simple-Nodejs-Docker-application"
