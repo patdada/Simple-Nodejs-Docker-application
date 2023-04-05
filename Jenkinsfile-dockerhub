@@ -43,7 +43,7 @@ pipeline {
                         sh "sed -i 's+releaseTag+${BUILD_NUMBER}+g' argocd-manifest/deployment.yml"
                         sh "cat argocd-manifest/deployment.yml"
                         sh "git add argocd-manifest/deployment.yml"
-                        sh "git commit -m 'Update the Deployment image to this version: v.${BUILD_NUMBER}'"
+                        sh "git commit -m 'Update the Deployment image to this version: ${BUILD_NUMBER}'"
                         sh "git push https://${GIT_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} HEAD:main"
                }
            }
