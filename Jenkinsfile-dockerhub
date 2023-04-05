@@ -34,7 +34,7 @@ pipeline {
                          GIT_REPO_NAME="Simple-Nodejs-Docker-application"
              }
             steps {
-                    withCredentials([string(credentialsId: 'karo-github', variable: 'GIT_TOKEN')]) {   
+                    withCredentials([string(credentialsId: 'karosec-github', variable: 'GIT_TOKEN')]) {   
                         sh "git config user.email ooghenekaro@yahoo.com"
                         sh "git config user.name ooghenekaro"
                         sh "cat argocd-manifest/deployment.yml"
