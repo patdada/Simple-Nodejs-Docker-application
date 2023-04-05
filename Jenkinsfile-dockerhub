@@ -30,8 +30,10 @@ pipeline {
             }
         }
         stage('Trigger ManifestUpdate') {
+             steps{
                 build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]    
-          }      
+            } 
+        }      
     }
 }
 
