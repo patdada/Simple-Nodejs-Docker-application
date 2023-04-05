@@ -32,6 +32,7 @@ pipeline {
         stage('Update Deployment manifest') {
                environment {
                          GIT_REPO_NAME="Simple-Nodejs-Docker-application"
+                         GIT_USERNAME="ooghenekaro"
              }
             steps {
                     withCredentials([string(credentialsId: 'karosec-github', variable: 'GIT_TOKEN')]) {   
