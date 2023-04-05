@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Update Deployment manifest') {
                environment {
-                         GIT_REPO_NAME="Grand CI and Argocd deployment to AWS EKS"
+                         GIT_REPO_NAME="Simple-Nodejs-Docker-application"
              }
             steps {
                     withCredentials([usernamePassword(credentialsId: 'karo-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {   
