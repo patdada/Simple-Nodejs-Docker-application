@@ -32,26 +32,7 @@ pipeline {
         stage('Trigger ManifestUpdate') {
                 build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
             }
-        }
-        stage('Update Deployment manifest') {
-               environment {
-                         GIT_REPO_NAME="Simple-Nodejs-Docker-application"
-                         GIT_USERNAME="ooghenekaro"
-             }
-            steps {
-                    withCredentials([string(credentialsId: 'karosec-github', variable: 'GIT_TOKEN')]) {   
-                        sh "git config user.email ooghenekaro@yahoo.com"
-                        sh "git config user.name ooghenekaro"
-                        sh "cat argocd-manifest/deployment.yml"
-                        sh "BUILD_NUMBER=${BUILD_NUMBER}"
-                        sh "sed -i 's+*+${BUILD_NUMBER}+g' argocd-manifest/deployment.yml"
-                        sh "cat argocd-manifest/deployment.yml"
-                        sh "git add argocd-manifest/deployment.yml"
-                        sh "git commit -m 'Update the Deployment image to this version: ${BUILD_NUMBER}'"
-                        sh "git push https://${GIT_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} HEAD:main"
-               }
-           }
-       }
+        }      
     }
 }
 
