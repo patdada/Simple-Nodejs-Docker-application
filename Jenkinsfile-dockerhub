@@ -40,7 +40,7 @@ pipeline {
                         sh "git config user.name ooghenekaro"
                         sh "cat argocd-manifest/deployment.yml"
                         sh "BUILD_NUMBER=${BUILD_NUMBER}"
-                        sh "sed -i 's+releaseTag+v.${BUILD_NUMBER}.RELEASE+g' argocd-manifest/deployment.yml"
+                        sh "sed -i 's+releaseTag+${BUILD_NUMBER}+g' argocd-manifest/deployment.yml"
                         sh "cat argocd-manifest/deployment.yml"
                         sh "git add argocd-manifest/deployment.yml"
                         sh "git commit -m 'Update the Deployment image to this version: v.${BUILD_NUMBER}'"
