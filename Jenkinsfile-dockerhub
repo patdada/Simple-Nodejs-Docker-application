@@ -1,35 +1,41 @@
-node {
-    def app
+pipeline {
+    agent any 
 
-    stage('Clone repository') {
-      
-
-        git branch: 'main', url: 'https://github.com/ooghenekaro/Simple-Nodejs-Docker-application.git'
+     options {
+        timeout(time: 10, unit: 'MINUTES')
+     }
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('karo-dockerhub')
+    APP_NAME = "ooghenekaro/nodejs-app"
     }
-
-    stage('Build image') {
-  
-       app = docker.build("ooghenekaro/nodejs-app")
-    }
-
-    stage('Test image') {
-  
-
-        app.inside {
-            sh 'echo "Tests passed"'
+    stages { 
+        stage('SCM Checkout') {
+            steps{
+           git branch: 'main', url: 'https://github.com/ooghenekaro/Simple-Nodejs-Docker-application.git'
+            }
         }
-    }
 
-    stage('Push image') {
-        
-        docker.withRegistry('https://registry.hub.docker.com', 'karo-dockerhub') {
-            app.push("${env.BUILD_NUMBER}")
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
+            }
         }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push $APP_NAME:$BUILD_NUMBER'
+            }
+        }
+        stage('Trigger ManifestUpdate') {
+             steps{
+                build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]    
+            } 
+        }      
     }
-    
-    stage('Trigger ManifestUpdate') {
-                echo "triggering updatemanifestjob"
-                build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-        }
 }
+
 
