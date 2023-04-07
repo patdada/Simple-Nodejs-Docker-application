@@ -5,9 +5,14 @@
   "author": "Oghenekaro Oboido <Oghenekaro.Oboido@example.com>",
   "main": "server.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "body-parser": "^1.19.0",
+    "mocha": "10.1.0",
+    "mongodb": "^3.3.3"
+
   }
 }
