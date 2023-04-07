@@ -35,6 +35,11 @@ pipeline {
                 }
             }
         }
+        stage('Trivy Scan (Aqua)') {
+            steps {
+                sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest'
+            }
+       }
         stage('Push to ECR') {
             steps {
                 script{
@@ -48,11 +53,7 @@ pipeline {
                 }
             }
         }
-        stage('Trivy Scan (Aqua)') {
-            steps {
-                sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest'
-            }
-       }
+        
     }
 }
 
