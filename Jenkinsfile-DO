@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-    DIGITALOCEAN_ACCESS_TOKEN=credentials('karo-do-token')
+    DIGITALOCEAN_ACCESS_TOKEN=credentials('do-api-token')
       }  
     stages {
       stage('Checkout') {
