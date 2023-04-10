@@ -3,10 +3,9 @@ pipeline {
     stages {
       stage('Checkout') {
         steps {
-          
+            git branch: 'main', url: 'https://github.com/ooghenekaro/Simple-Nodejs-Docker-application.git'  
         }
       }
-
       stage("Docker Build") {
             steps {
                  sh " docker build -t registry.digitalocean.com/ayoregistry/test-image:latest ."
