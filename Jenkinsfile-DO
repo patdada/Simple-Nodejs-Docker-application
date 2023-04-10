@@ -16,7 +16,7 @@ pipeline {
         }
         stage("Docker login") {
             steps {
-                 sh "doctl auth init -t 'do-api-token'"
+                 sh "doctl auth init -t ${DIGITALOCEAN_ACESS_TOKEN}"
                  sh " doctl registry login"
             }
         }
