@@ -11,14 +11,6 @@ pipeline {
                  sh " docker build -t registry.digitalocean.com/ayoregistry/test-image:latest ."
             }
         }
-      stage("Docker Login") {
-                     steps {
-                   //sh "docker login registry.digitalocean.com"
-                    sh "doctl auth switch --context ibt-do-context"
-                     sh "doctl auth init"
-                    sh "doctl registry login"    
-                 }
-      }  
       stage("Docker Push") {
             steps {
                 sh "docker push registry.digitalocean.com/ayoregistry/test-image:latest"
