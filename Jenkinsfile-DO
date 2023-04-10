@@ -13,7 +13,8 @@ pipeline {
         }
       stage("Docker Login") {
                      steps {
-                   //sh "docker login registry.digitalocean.com"       
+                   //sh "docker login registry.digitalocean.com"
+                     sh "doctl auth init"
                     sh "doctl registry login"    
                  }
       }  
