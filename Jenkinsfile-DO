@@ -15,7 +15,7 @@ pipeline {
                      steps {
                    //sh "docker login registry.digitalocean.com"
                     //sh ""
-                     sh "doctl auth init -t {token}"
+                     sh "doctl auth init -t {karo-do-token}"
                     sh "doctl registry login"    
                  }
       }  
