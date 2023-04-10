@@ -14,8 +14,8 @@ pipeline {
       stage("Docker Login") {
                      steps {
                    //sh "docker login registry.digitalocean.com"
-                    //sh ""
-                     sh "doctl auth init --context default -t 'karo-do-token'"
+                    sh "doctl auth switch --context ibt-do-context"
+                     sh "doctl auth init -t 'karo-do-token'"
                     sh "doctl registry login"    
                  }
       }  
