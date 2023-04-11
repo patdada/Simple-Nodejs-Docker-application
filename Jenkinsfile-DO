@@ -16,7 +16,7 @@ pipeline {
         }
         stage("Docker login") {
             steps {
-                 sh "doctl auth init -c ibt-do-context"
+                 sh "doctl auth init -c default"
                  //sh "doctl registry login"
             }
         }
