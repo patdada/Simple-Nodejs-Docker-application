@@ -16,8 +16,8 @@ pipeline {
         }
         stage("Docker login") {
             steps {
-                 sh "doctl auth init"
-                 sh "doctl registry login"
+                 sh "doctl auth init -t"
+                 //sh "doctl registry login"
             }
         }
       stage("Docker Push") {
