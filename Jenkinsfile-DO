@@ -16,8 +16,9 @@ pipeline {
         }
         stage("Docker login") {
             steps {
-                 sh "doctl auth init -c default"
+                 //sh "doctl auth init -c default"
                  //sh "doctl registry login"
+                 sh 'echo $DIGITALOCEAN_ACCESS_TOKEN | docker login -u $DIGITALOCEAN_CREDENTIALS_USR --password-stdin'
             }
         }
       stage("Docker Push") {
