@@ -16,7 +16,7 @@ pipeline {
         }
         stage("Docker login") {
             steps {
-                 sh "doctl auth init -t ${DIGITALOCEAN_ACCESS_TOKEN}"
+                 sh "doctl auth init -t ${DIGITALOCEAN_ACCESS_TOKEN} --context-string ibt-do-context"
                  //sh "doctl registry login"
             }
         }
