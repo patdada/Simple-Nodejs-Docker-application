@@ -2,9 +2,9 @@ This is a simple containerised nodejs application that outputs a kudos message, 
 
 Command to run the image as a container
 
-docker run -p 3000:3000 -d ooghenekaro/node-app
+docker run -p 3000:3000 -d patdada/node-app
 
 or 
 
 
-docker run -p 3000:3000 -d ooghenekaro/node-app:v1.0.0 
+docker run -p 3000:3000 -d patdada/node-app:v1.0.0 
