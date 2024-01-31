@@ -2,7 +2,7 @@
   "name": "Nodesy_web_app",
   "version": "1.0.0",
   "description": "Node.js on Docker, Lets go",
-  "author": "Oghenekaro Oboido <Oghenekaro.Oboido@example.com>",
+  "author": "Oghenekaro Oboido <patrickdada@example.com>",
   "main": "server.js",
   "scripts": {
     "test": "mocha",
