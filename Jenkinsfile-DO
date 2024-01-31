@@ -6,7 +6,7 @@ pipeline {
     stages {
       stage('Checkout') {
         steps {
-            git branch: 'main', url: 'https://github.com/ooghenekaro/Simple-Nodejs-Docker-application.git'  
+            git branch: 'main', url: 'https://github.com/patdada/Simple-Nodejs-Docker-application.git'  
         }
       }
       stage("Docker Build") {
