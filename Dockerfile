@@ -1,11 +1,8 @@
-FROM node:lts-alpine3.17
-
-ENV NODE_ENV=production
-
+FROM node:14
 
 WORKDIR /app
 
-COPY package*.json /app
+COPY package*.json ./
 
 RUN npm install
 
